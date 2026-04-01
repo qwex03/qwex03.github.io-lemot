@@ -1,70 +1,190 @@
+:root {
+    --bg-color: #000000;
+    --text-color: #ffffff;
+    --nav-bg-color: #1d1d20;
+    --panel-color: transparent;
+    --input-bg-color: #000000;
+    --input-border-color: #2b2b30;
+    --input-filled-color: #111111;
+    --good-color: #3eaa42;
+    --partial-color: #cd8729;
+    --bad-color: #3d3d42;
+    --button-bg-color: #2a2a2f;
+    --button-text-color: #ffffff;
+}
+
+[data-theme="light"] {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --nav-bg-color: #f0f0f0;
+    --panel-color: transparent;
+    --input-bg-color: #ffffff;
+    --input-border-color: #cccccc;
+    --input-filled-color: #f5f5f5;
+    --good-color: #3eaa42;
+    --partial-color: #cd8729;
+    --bad-color: #b8b8b8;
+    --button-bg-color: #e3e3e3;
+    --button-text-color: #000000;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-:root {
-    --bg-color: black;
-    --text-color: white;
-    --nav-bg-color: #1d1d20;
-    --input-bg-color: black;
-    --input-border-color: #1d1d20;
-    --good-color: #3eaa42;
-    --partial-color: #cd8729;
-}
-
-[data-theme="light"] {
-    --bg-color: white;
-    --text-color: black;
-    --nav-bg-color: #f0f0f0;
-    --input-bg-color: white;
-    --input-border-color: #ccc;
+html,
+body {
+    min-height: 100%;
 }
 
 body {
     font-family: Arial, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
-    font-size: 18px; 
+    font-size: 18px;
     line-height: 1.4;
 }
 
-input, textarea {
-    caret-color: transparent; 
+button,
+input {
+    font: inherit;
 }
 
-nav {
+input {
+    caret-color: transparent;
+}
+
+.page-shell {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.topbar {
     background-color: var(--nav-bg-color);
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    gap: 16px;
     color: var(--text-color);
-    height: 70px; 
-    font-weight: bold;
-    font-size: 22px;
-    user-select: none;
-    padding: 0 15px;
+    min-height: 72px;
+    padding: 12px 18px;
     width: 100%;
 }
 
-.board {
+.eyebrow {
+    display: none;
+}
+
+h1 {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1;
+    user-select: none;
+}
+
+h1 .good {
+    color: var(--good-color);
+}
+
+h1 .partial {
+    color: var(--partial-color);
+}
+
+.topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.action-btn,
+.theme-btn {
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.action-btn:hover,
+.theme-btn:hover,
+.keyboard button:hover {
+    transform: scale(1.04);
+}
+
+.action-btn {
+    min-height: 46px;
+    padding: 0 16px;
+    font-weight: 700;
+}
+
+.theme-btn {
+    width: 46px;
+    height: 46px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-layout {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.panel {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 22px 16px 18px;
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+    background-color: var(--panel-color);
+}
+
+.game-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.panel-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.status-message,
+.attempt-label {
+    color: var(--text-color);
+    opacity: 0.78;
+    font-size: 15px;
+}
+
+.status-message {
+    min-height: 1.4em;
+}
+
+.board {
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 20px; 
-    max-width: 100vw;
-    overflow-x: hidden;
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 450px; 
-    margin: 0 auto; 
+    padding: 10px 0 18px;
+    max-width: 450px;
+    margin: 0 auto;
 }
 
 .row {
@@ -72,114 +192,185 @@ nav {
     justify-content: center;
     align-items: center;
     margin-bottom: 12px;
-    gap: 10px; 
+    gap: 10px;
     width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
 }
 
-.row > input {
+.tile {
     flex: 1 1 0;
-    max-width: 70px; 
-    height: 70px; 
+    width: 100%;
+    max-width: 72px;
+    aspect-ratio: 1;
     text-align: center;
     font-size: 32px;
-    font-weight: bold;
+    font-weight: 700;
     background-color: var(--input-bg-color);
     border: 3px solid var(--input-border-color);
-    border-radius: 8px; 
+    border-radius: 8px;
     color: var(--text-color);
     text-transform: uppercase;
-    transition: transform 0.5s ease, background-color 0.5s ease;
+    transition: transform 0.4s ease, background-color 0.3s ease, border-color 0.3s ease;
     transform-origin: center;
 }
 
-.row > input.good {
+.tile.filled {
+    background-color: var(--input-filled-color);
+}
+
+.tile.good,
+.keyboard button.good {
     background-color: var(--good-color);
     border-color: var(--good-color);
-    transform: rotateX(360deg);
+    color: #ffffff;
 }
 
-.row > input.partial {
+.tile.partial,
+.keyboard button.partial {
     background-color: var(--partial-color);
     border-color: var(--partial-color);
+    color: #ffffff;
+}
+
+.tile.bad,
+.keyboard button.bad {
+    background-color: var(--bad-color);
+    border-color: var(--bad-color);
+    color: #ffffff;
+}
+
+.tile.reveal {
     transform: rotateX(360deg);
 }
 
-.row > input:focus {
+.tile:focus {
     outline: none;
     border-color: var(--good-color);
 }
 
-.theme-btn {
-    font-size: 28px;
-    background-color: var(--nav-bg-color);
-    border: none;
-    color: white;
-    cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    width: 54px;
-    height: 54px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    user-select: none;
+.mobile-controls {
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
 }
 
-.theme-btn:hover {
-    transform: scale(1.2);
-    background-color: var(--good-color);
+.keyboard {
+    display: grid;
+    gap: 8px;
+}
+
+.keyboard-row {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+}
+
+.keyboard-row:nth-child(2) {
+    grid-template-columns: repeat(9, minmax(0, 1fr));
+    padding-inline: 18px;
+}
+
+.keyboard-row:nth-child(3) {
+    grid-template-columns: 1.4fr repeat(7, minmax(0, 1fr)) 1.4fr;
+}
+
+.keyboard button {
+    min-height: 48px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    font-weight: 700;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+.keyboard button[data-key="ENTER"],
+.keyboard button[data-key="BACKSPACE"] {
+    font-size: 13px;
 }
 
 @media (max-width: 600px) {
     body {
         font-size: 16px;
-        padding: 0 15px;
     }
 
-    nav {
-        font-size: 18px;
-        height: 80px;
+    .topbar {
+        min-height: 78px;
+        padding: 14px 15px;
     }
 
-    .board {
-        padding: 15px;
-        max-width: 100%;
+    h1 {
+        font-size: 28px;
+    }
+
+    .panel {
+        padding: 18px 14px 14px;
+    }
+
+    .game-header {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 16px;
     }
 
     .row {
         gap: 8px;
     }
 
-    .row > input {
-        max-width: 60px;
-        height: 60px;
+    .tile {
+        max-width: 62px;
         font-size: 28px;
     }
 
-    .theme-btn {
-        width: 44px;
-        height: 44px;
-        font-size: 22px;
+    .keyboard-row:nth-child(2) {
+        padding-inline: 10px;
+    }
+
+    .keyboard button {
+        min-height: 44px;
+        font-size: 14px;
     }
 }
 
 @media (max-width: 400px) {
-    nav {
-        font-size: 16px;
-        height: 70px;
+    .topbar {
+        padding: 12px;
     }
 
-    .row > input {
-        max-width: 50px;
-        height: 50px;
+    h1 {
         font-size: 24px;
+    }
+
+    .action-btn {
+        min-height: 40px;
+        padding: 0 12px;
+        font-size: 14px;
     }
 
     .theme-btn {
         width: 40px;
         height: 40px;
         font-size: 20px;
+    }
+
+    .row,
+    .keyboard,
+    .keyboard-row {
+        gap: 6px;
+    }
+
+    .tile {
+        max-width: 54px;
+        font-size: 24px;
+    }
+
+    .keyboard-row:nth-child(2) {
+        padding-inline: 4px;
+    }
+
+    .keyboard button {
+        min-height: 40px;
+        font-size: 12px;
     }
 }

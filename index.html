@@ -1,21 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Le Mot</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav>
-        <h1>
-            <span class="good">L</span>E <span class="partial">M</span>OT
-        </h1>
-        <button id="toggle-theme" class="theme-btn">🌙</button>
-    </nav>
-    <main class="board">
+    <div class="page-shell">
+        <nav class="topbar">
+            <div>
+                <p class="eyebrow">Jeu de lettres</p>
+                <h1>
+                    <span class="good">L</span>E <span class="partial">M</span>OT
+                </h1>
+            </div>
+            <div class="topbar-actions">
+                <button id="restart-game" class="action-btn" type="button">Rejouer</button>
+                <button id="toggle-theme" class="theme-btn" type="button" aria-label="Changer de thème">🌙</button>
+            </div>
+        </nav>
 
-    </main>
+        <main class="game-layout">
+            <section class="panel">
+                <div class="game-header">
+                    <div>
+                        <p class="panel-title">Trouve le mot de 5 lettres</p>
+                        <p id="status-message" class="status-message">Chargement du mot...</p>
+                    </div>
+                    <p id="attempt-label" class="attempt-label">Essai 1 / 6</p>
+                </div>
+
+                <section class="board" aria-label="Grille du jeu"></section>
+
+                <section class="mobile-controls" aria-label="Clavier du jeu">
+                    <div id="keyboard" class="keyboard"></div>
+                </section>
+            </section>
+        </main>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
